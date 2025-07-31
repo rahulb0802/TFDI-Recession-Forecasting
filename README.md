@@ -1,8 +1,8 @@
-# A Deterioration Diffusion Index for U.S. Recession Forecasting
+# A Two-Factor Diffusion Index for U.S. Recession Forecasting
 **Author:** Rahul Billakanti
 
 ## Project Overview
-This repository contains the code and data to replicate the results in the paper "A Deterioration Diffusion Index for U.S. Recession Forecasting". The project develops and tests a novel diffusion index for forecasting U.S. recessions.
+This repository contains the code and data to replicate the results in the paper "A Two-Factor Diffusion Index for U.S. Recession Forecasting". The project develops and tests a novel diffusion index for forecasting U.S. recessions.
 
 ## Required Libraries
 All necessary Python libraries are listed in `requirements.txt`. To create the correct environment, run:
