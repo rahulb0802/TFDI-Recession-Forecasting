@@ -403,13 +403,17 @@ def add_lags(df, lags_to_add, prefix=''):
     if not lags_to_add:
         return df
 
-    df_lagged = df.copy()
+    # Start with the original DataFrame
+    df_list = [df.copy()]
+    
+    # Add lagged versions
     for lag in lags_to_add:
         df_shifted = df.shift(lag)
         df_shifted.columns = [f'{prefix}{col}_lag{lag}' for col in df.columns]
-        df_lagged = pd.concat([df_lagged, df_shifted], axis=1)
+        df_list.append(df_shifted)
 
-    return df_lagged
+    # Concatenate all DataFrames at once to avoid fragmentation
+    return pd.concat(df_list, axis=1)
 
 
 def add_lags_wo_current(df, lags_to_add, prefix=''):

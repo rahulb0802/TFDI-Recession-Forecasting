@@ -2,6 +2,7 @@
 # Minchul's replication
 
 # TODO: 1) PCA of TFDI_dis; 2) average version of TFDI_dis
+# Regularization parameter selection
 
 # %% Importing libraries
 import os
