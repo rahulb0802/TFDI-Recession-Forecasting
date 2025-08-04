@@ -29,6 +29,7 @@ from fcst_tools import (
     generate_Deter_Indices,
     add_lags,
     add_lags_wo_current,
+    generate_qTrans_Sub_Indices
 )
 
 # %% Setting - config
@@ -56,7 +57,8 @@ MODELS_TO_RUN = {
 
 # Predictors
 #ALL_POSSIBLE_SETS = ['TFDI', 'PCA_Factors_8', 'Full']
-ALL_POSSIBLE_SETS = ['PCA_Factors_8', 'Full', 'Yield', 'ADS']
+#ALL_POSSIBLE_SETS = ['PCA_Factors_8', 'Full', 'Yield', 'ADS']
+ALL_POSSIBLE_SETS = ['TFDI_dis', 'Full', 'PCA_Factors_8']
 
 # %% Load data
 y_target_full = pd.read_pickle(os.path.join(INTERMEDIATE_PATH, 'y_target.pkl'))
@@ -129,6 +131,9 @@ for PREDICTION_HORIZON in PREDICTION_HORIZONS:
             # The function does all preprocessing internally
             all_8_factors = generate_PCA_Factors(X_train_transformed_slice, n_factors=8)
             predictor_data_iter['PCA_Factors_8'] = all_8_factors
+        if 'TFDI_dis' in sets_to_run:
+            predictor_data_iter['TFDI_dis'], all_sub_indices = generate_qTrans_Sub_Indices(X_train_imputed, y_train_full, h_qt=3, q_qt=0.25)
+            sub_index_filename = f'sub_indices_TFDI_dis_{forecast_date.strftime("%Y-%m-%d")}.pkl'
         if 'TFDI' in sets_to_run:
             predictor_data_iter['TFDI'], all_sub_indices = generate_TFDI_Sub_Indices(X_train_imputed, y_train_full, horizon=PREDICTION_HORIZON)
             sub_index_filename = f'sub_indices_TFDI_{forecast_date.strftime("%Y-%m-%d")}.pkl'

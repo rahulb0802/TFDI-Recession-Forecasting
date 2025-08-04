@@ -442,3 +442,93 @@ def add_lags_wo_current(df, lags_to_add, prefix=''):
     
     # Concatenate all DataFrames
     return pd.concat(df_list, axis=1)
+
+
+def generate_qTrans_Sub_Indices(X_transformed_train, y_train, h_qt=3, q_qt=0.25,h_sc=3, top_n=10000):
+    """
+    This function generates quantile transformed of individual series.
+    Output from this function can be used for TFDI construction. Can be used as individual predictors
+        - h_qt is the moving window size for quantile transformation.
+        - q_qt is the quantile to use for transformation (default is 0.25), for pro-cyclical variables
+        - h_sc is the moving window size for variable screening (default is 3)
+        - top_n is the number of top variables to select per category (targeting; default is large so that we include all series)
+
+    """
+    
+    # Generate Unweighted Sub-Indices
+    variable_groups = {
+        'Output_Income': ['RPI', 'W875RX1', 'INDPRO', 'IPFPNSS', 'IPFINAL', 'IPCONGD', 'IPDCONGD', 'IPNCONGD', 'IPBUSEQ', 'IPMAT', 'IPDMAT', 'IPNMAT', 'IPMANSICS', 'IPB51222S', 'IPFUELS', 'CUMFNS'],
+        'Labor_Market': ['HWI', 'HWIURATIO', 'CLF16OV', 'CE16OV', 'UNRATE', 'UEMPMEAN', 'UEMPLT5', 'UEMP5TO14', 'UEMP15OV', 'UEMP15T26', 'UEMP27OV', 'CLAIMSx', 'PAYEMS', 'USGOOD', 'CES1021000001', 'USCONS', 'MANEMP', 'DMANEMP', 'NDMANEMP', 'SRVPRD', 'USTPU', 'USWTRADE', 'USTRADE', 'USFIRE', 'USGOVT', 'CES0600000007', 'AWOTMAN', 'AWHMAN', 'CES0600000008', 'CES2000000008', 'CES3000000008'],
+        'Housing': ['HOUST', 'HOUSTNE', 'HOUSTMW', 'HOUSTS', 'HOUSTW', 'PERMIT', 'PERMITNE', 'PERMITMW', 'PERMITS', 'PERMITW'],
+        'Consumption_Orders_Inventories': ['DPCERA3M086SBEA', 'CMRMTSPLx', 'RETAILx', 'AMDMNOx', 'AMDMUOx', 'BUSINVx', 'ISRATIOx'],
+        'Money_Credit': ['M1SL', 'M2SL', 'M2REAL', 'BOGMBASE', 'TOTRESNS', 'NONBORRES', 'BUSLOANS', 'REALLN', 'NONREVSL', 'CONSPI', 'DTCOLNVHFNM', 'DTCTHFNM', 'INVEST'],
+        'Interest_Rates_Spreads': ['FEDFUNDS', 'CP3Mx', 'TB3MS', 'TB6MS', 'GS1', 'GS5', 'GS10', 'AAA', 'BAA', 'COMPAPFFx', 'TB3SMFFM', 'TB6SMFFM', 'T1YFFM', 'T5YFFM', 'T10YFFM', 'AAAFFM', 'BAAFFM'],
+        'FX_Rates': ['EXSZUSx', 'EXJPUSx', 'EXUSUKx', 'EXCAUSx'],
+        'Prices': ['WPSFD49207', 'WPSFD49502', 'WPSID61', 'WPSID62', 'PPICMM', 'CPIAUCSL', 'CPIAPPSL', 'CPITRNSL', 'CPIMEDSL', 'CUSR0000SAC', 'CUSR0000SAD', 'CUSR0000SAS', 'CPIULFSL', 'CUSR0000SA0L2', 'CUSR0000SA0L5', 'PCEPI', 'DDURRG3M086SBEA', 'DNDGRG3M086SBEA', 'DSERRG3M086SBEA'],
+        'Stock_Market': ['S&P 500', 'S&P div yield', 'S&P PE ratio', 'VIXCLSx']
+    }
+    # counter_cyclical_vars = {'UNRATE', 'UEMPMEAN', 'UEMPLT5', 'UEMP5TO14', 'UEMP15OV', 'UEMP15T26', 'UEMP27OV', 'CLAIMSx', 'ISRATIOx', 'AAAFFM', 'BAAFFM', 'VIXCLSx'}
+    counter_cyclical_vars = {'UNRATE', 'UEMPMEAN', 'UEMPLT5', 'UEMP5TO14', 'UEMP15OV', 'UEMP15T26', 'UEMP27OV', 'CLAIMSx', 'ISRATIOx', 'VIXCLSx'} #yield spreads are pro-cyclical (in that negative slope->recession)
+    special_financial_vars = {'AAAFFM', 'BAAFFM', 'VIXCLSx'}
+    X_momentum = X_transformed_train.rolling(window=h_sc, min_periods=1).mean()
+
+    # Targeting (horizon=0 because we shifted x already)
+    refined_variable_groups = select_top_variables_per_category(X_momentum, y_train, variable_groups, horizon=0, top_n=top_n, corr_threshold=0.0)
+    weakness_states = pd.DataFrame(index=X_transformed_train.index)
+    deterioration_states = pd.DataFrame(index=X_transformed_train.index)
+
+    all_selected_vars = [var for var_list in refined_variable_groups.values() for var in var_list]
+    for var in all_selected_vars:
+        signal_for_ranking = X_transformed_train[var]
+        is_counter_theoretical = var in counter_cyclical_vars
+        use_counter_logic = is_counter_theoretical
+
+        # Use transformed values for special financial vars, not levels
+        # We don't do this for a moment
+        # if horizon == 1 and var in special_financial_vars:
+        #     use_counter_logic = True
+        #     signal_for_ranking = X_transformed_train[var].diff()
+        # elif horizon > 1 and var in special_financial_vars:
+        #     signal_for_ranking = X_transformed_train[var].diff()
+
+        level_signal = signal_for_ranking
+        momentum_signal = signal_for_ranking.rolling(window=h_qt, min_periods=1).mean()
+
+        upper_quantile = 1.0 - q_qt
+        lower_quantile = q_qt
+
+        weakness_threshold = level_signal.quantile(upper_quantile if use_counter_logic else lower_quantile)
+        weak_state = pd.Series(0.0, index=level_signal.index)
+        if use_counter_logic: weak_state[level_signal > weakness_threshold] = 1.0
+        else: weak_state[level_signal < weakness_threshold] = 1.0
+        weakness_states[var] = weak_state
+
+        deterioration_threshold = momentum_signal.quantile(upper_quantile if use_counter_logic else lower_quantile)
+        deteriorating_state = pd.Series(0.0, index=momentum_signal.index)
+        if use_counter_logic: deteriorating_state[momentum_signal > deterioration_threshold] = 1.0
+        else: deteriorating_state[momentum_signal < deterioration_threshold] = 1.0
+        deterioration_states[var] = deteriorating_state
+
+    # Dataset for disaggregate deterioration status
+    # Copy deterioration_states to all_disaggregates (matrix similar to X_transformed_train but with deterioration states)
+    all_disaggregates = deterioration_states.copy()
+    
+    # Aggregate into Unweighted Per-Category Sub-Indices
+    cat_weakness_di = pd.DataFrame(index=X_transformed_train.index)
+    cat_deterioration_di = pd.DataFrame(index=X_transformed_train.index)
+
+    for category, var_list in refined_variable_groups.items():
+        # Only try to access columns that were actually selected
+        weak_cols = [v for v in var_list if v in weakness_states.columns]
+        if weak_cols:
+            cat_weakness_di[f"W_{category.replace(' ', '_')}"] = weakness_states[weak_cols].mean(axis=1)
+
+        det_cols = [v for v in var_list if v in deterioration_states.columns]
+        if det_cols:
+            cat_deterioration_di[f"D_{category.replace(' ', '_')}"] = deterioration_states[det_cols].mean(axis=1)
+
+    all_sub_indices = pd.concat([cat_weakness_di, cat_deterioration_di], axis=1)
+
+
+
+    return all_disaggregates, all_sub_indices.fillna(method='ffill').fillna(0)
