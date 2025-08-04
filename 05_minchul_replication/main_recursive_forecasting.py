@@ -60,7 +60,7 @@ MODELS_TO_RUN = {
 # Predictors
 #ALL_POSSIBLE_SETS = ['TFDI', 'PCA_Factors_8', 'Full']
 #ALL_POSSIBLE_SETS = ['PCA_Factors_8', 'Full', 'Yield', 'ADS']
-ALL_POSSIBLE_SETS = ['TFDI_dis', 'Full', 'PCA_Factors_8']
+ALL_POSSIBLE_SETS = ['TFDI_dis', 'Full', 'PCA_Factors_8', 'Yield', 'ADS']
 
 # %% Load data
 y_target_full = pd.read_pickle(os.path.join(INTERMEDIATE_PATH, 'y_target.pkl'))
