@@ -41,7 +41,7 @@ OOS_MODELS_PATH = RESULTS_PATH  # dump everything to this folder
 
 # Out-of-sample (OOS) Loop Settings
 OOS_START_DATE = '1990-01-01'
-PREDICTION_HORIZONS = [3]
+PREDICTION_HORIZONS = [12]
 LAGS_TO_ADD = []
 
 # Nonlinear grid for regularization parameters
@@ -66,7 +66,7 @@ for i, C in enumerate(C_values):
 #ALL_POSSIBLE_SETS = ['TFDI', 'PCA_Factors_8', 'Full']
 #ALL_POSSIBLE_SETS = ['PCA_Factors_8', 'Full', 'Yield', 'ADS']
 #ALL_POSSIBLE_SETS = ['TFDI_dis_with_Full', 'TFDI_dis']
-ALL_POSSIBLE_SETS = ['TFDI_dis']
+ALL_POSSIBLE_SETS = ['TFDI_dis', 'TFDI_dis_with_Full']
 
 # %% Load data
 y_target_full = pd.read_pickle(os.path.join(INTERMEDIATE_PATH, 'y_target.pkl'))

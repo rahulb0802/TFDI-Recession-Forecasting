@@ -11,9 +11,8 @@ When H=3;
 It seems like "at Risk" transformation contains valuable information
 
 Now, the question remains:
-1] 
-
-
+1] at which quantile? (`see main_quantile_check.py`)
+2] number of factors 
 
 # Detailed info
 
