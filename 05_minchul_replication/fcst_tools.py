@@ -478,10 +478,13 @@ def generate_qTrans_Sub_Indices(X_transformed_train, y_train, h_qt=3, q_qt=0.25,
 
     # Targeting (horizon=0 because we shifted x already)
     refined_variable_groups = select_top_variables_per_category(X_momentum, y_train, variable_groups, horizon=0, top_n=top_n, corr_threshold=0.0)
-    weakness_states = pd.DataFrame(index=X_transformed_train.index)
-    deterioration_states = pd.DataFrame(index=X_transformed_train.index)
-
+    
     all_selected_vars = [var for var_list in refined_variable_groups.values() for var in var_list]
+    
+    # Pre-allocate dictionaries to collect data
+    weakness_data = {}
+    deterioration_data = {}
+    
     for var in all_selected_vars:
         signal_for_ranking = X_transformed_train[var]
         is_counter_theoretical = var in counter_cyclical_vars
@@ -505,13 +508,17 @@ def generate_qTrans_Sub_Indices(X_transformed_train, y_train, h_qt=3, q_qt=0.25,
         weak_state = pd.Series(0.0, index=level_signal.index)
         if use_counter_logic: weak_state[level_signal > weakness_threshold] = 1.0
         else: weak_state[level_signal < weakness_threshold] = 1.0
-        weakness_states[var] = weak_state
+        weakness_data[var] = weak_state
 
         deterioration_threshold = momentum_signal.quantile(upper_quantile if use_counter_logic else lower_quantile)
         deteriorating_state = pd.Series(0.0, index=momentum_signal.index)
         if use_counter_logic: deteriorating_state[momentum_signal > deterioration_threshold] = 1.0
         else: deteriorating_state[momentum_signal < deterioration_threshold] = 1.0
-        deterioration_states[var] = deteriorating_state
+        deterioration_data[var] = deteriorating_state
+    
+    # Create DataFrames efficiently using pd.concat
+    weakness_states = pd.DataFrame(weakness_data)
+    deterioration_states = pd.DataFrame(deterioration_data)
 
     # Dataset for disaggregate deterioration status
     # Copy deterioration_states to all_disaggregates (matrix similar to X_transformed_train but with deterioration states)
