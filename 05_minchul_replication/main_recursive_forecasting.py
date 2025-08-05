@@ -31,7 +31,8 @@ from fcst_tools import (
     generate_Deter_Indices,
     add_lags,
     add_lags_wo_current,
-    generate_qTrans_Sub_Indices
+    generate_qTrans_Sub_Indices,
+    generate_TFDI_PCA_Factors
 )
 
 # %% Setting - config
@@ -61,7 +62,8 @@ MODELS_TO_RUN = {
 #ALL_POSSIBLE_SETS = ['TFDI', 'PCA_Factors_8', 'Full']
 #ALL_POSSIBLE_SETS = ['PCA_Factors_8', 'Full', 'Yield', 'ADS']
 #ALL_POSSIBLE_SETS = ['TFDI_dis_with_Full', 'TFDI_dis']
-ALL_POSSIBLE_SETS = ['TFDI_dis', 'Full', 'PCA_Factors_8', 'Yield', 'ADS']
+# ALL_POSSIBLE_SETS = ['TFDI_avg', 'TFDI_pca']
+ALL_POSSIBLE_SETS = ['TFDI_Full_pca']
 
 # %% Load data
 y_target_full = pd.read_pickle(os.path.join(INTERMEDIATE_PATH, 'y_target.pkl'))
@@ -140,6 +142,19 @@ for PREDICTION_HORIZON in PREDICTION_HORIZONS:
         if 'TFDI_dis_with_Full' in sets_to_run:
             TFDI_dis_raw, all_sub_indices = generate_qTrans_Sub_Indices(X_train_imputed, y_train_full, h_qt=3, q_qt=0.25)
             predictor_data_iter['TFDI_dis_with_Full'] = pd.concat([X_train_scaled, TFDI_dis_raw], axis=1)
+        if 'TFDI_avg' in sets_to_run:
+            TFDI_dis_raw, all_sub_indices = generate_qTrans_Sub_Indices(X_train_imputed, y_train_full, h_qt=3, q_qt=0.25)
+            predictor_data_iter['TFDI_avg'] = TFDI_dis_raw.mean(axis=1).to_frame('TFDI_avg')
+        if 'TFDI_pca' in sets_to_run:
+            TFDI_dis_raw, all_sub_indices = generate_qTrans_Sub_Indices(X_train_imputed, y_train_full, h_qt=3, q_qt=0.25)
+            # Generate TFDI PCA factors using the function from tools
+            predictor_data_iter['TFDI_pca'] = generate_TFDI_PCA_Factors(TFDI_dis_raw, n_factors=8)
+        if 'TFDI_Full_pca' in sets_to_run:
+            TFDI_dis_raw, all_sub_indices = generate_qTrans_Sub_Indices(X_train_imputed, y_train_full, h_qt=3, q_qt=0.25)
+            full_8_factors = generate_PCA_Factors(X_train_imputed, n_factors=8)
+            TFDI_8_factors = generate_TFDI_PCA_Factors(TFDI_dis_raw, n_factors=8)
+            # Generate TFDI PCA factors using the function from tools
+            predictor_data_iter['TFDI_Full_pca'] = pd.concat([full_8_factors, TFDI_8_factors], axis=1)
         if 'TFDI' in sets_to_run:
             predictor_data_iter['TFDI'], all_sub_indices = generate_TFDI_Sub_Indices(X_train_imputed, y_train_full, horizon=PREDICTION_HORIZON)
             sub_index_filename = f'sub_indices_TFDI_{forecast_date.strftime("%Y-%m-%d")}.pkl'

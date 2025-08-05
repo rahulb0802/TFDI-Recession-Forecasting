@@ -1,3 +1,22 @@
+# Notes for model exploring
+When H=3;
+1. TFDI-dis with L1 regularization leads to better performance
+2. Better than L2 - Yes
+3. Better than full covariates (L1, L2) - Yes
+4. better than TFDI-dis with full covariates (L1, L2) - Yes
+5. better than PCA of full covariates - Yes
+6. average of TFDI-dis performs quite well similar to L2 but L1 version performs better
+7. TFDI-dis-pca beats everything above (also, no regularization needed)
+8. TFDI-dis-pca + Full-pca beats everything above
+It seems like "at Risk" transformation contains valuable information
+
+Now, the question remains:
+1] 
+
+
+
+# Detailed info
+
 ================================================================================
 AVERAGE BRIER SCORES (OUT-OF-SAMPLE ERRORS)
 ================================================================================
@@ -168,3 +187,233 @@ Predictor_Set            Model   C_Value  Avg_Brier_Score  Valid_Predictions  To
 BEST PERFORMING MODELS BY PREDICTOR SET
 ================================================================================
 TFDI_dis       : Logit_L2_C0.464      (C=0.464, Brier: 0.044146)
+
+
+================================================================================
+AVERAGE BRIER SCORES (OUT-OF-SAMPLE ERRORS)
+================================================================================
+
+Predictor Set: TFDI_dis_with_Full
+--------------------------------------------------
+  Logit_L2_C0.001     : 0.129836 (n=420/420)
+  Logit_L2_C0.003     : 0.091809 (n=420/420)
+  Logit_L2_C0.008     : 0.071757 (n=420/420)
+  Logit_L2_C0.022     : 0.063701 (n=420/420)
+  Logit_L2_C0.060     : 0.061164 (n=420/420)
+  Logit_L2_C0.167     : 0.060543 (n=420/420)
+  Logit_L2_C0.464     : 0.061108 (n=420/420)
+  Logit_L2_C1.292     : 0.063083 (n=420/420)
+  Logit_L2_C3.594     : 0.066505 (n=420/420)
+  Logit_L2_C10.000    : 0.070183 (n=420/420)
+
+Predictor Set: TFDI_dis
+--------------------------------------------------
+  Logit_L2_C0.001     : 0.162504 (n=420/420)
+  Logit_L2_C0.003     : 0.124105 (n=420/420)
+  Logit_L2_C0.008     : 0.090268 (n=420/420)
+  Logit_L2_C0.022     : 0.066684 (n=420/420)
+  Logit_L2_C0.060     : 0.053288 (n=420/420)
+  Logit_L2_C0.167     : 0.046586 (n=420/420)
+  Logit_L2_C0.464     : 0.044146 (n=420/420)
+  Logit_L2_C1.292     : 0.045353 (n=420/420)
+  Logit_L2_C3.594     : 0.049056 (n=420/420)
+  Logit_L2_C10.000    : 0.054460 (n=420/420)
+
+Predictor Set: Full
+--------------------------------------------------
+  Logit_L2_C0.001     : 0.194654 (n=420/420)
+  Logit_L2_C0.003     : 0.152845 (n=420/420)
+  Logit_L2_C0.008     : 0.110009 (n=420/420)
+  Logit_L2_C0.022     : 0.083841 (n=420/420)
+  Logit_L2_C0.060     : 0.076833 (n=420/420)
+  Logit_L2_C0.167     : 0.079896 (n=420/420)
+  Logit_L2_C0.464     : 0.086921 (n=420/420)
+  Logit_L2_C1.292     : 0.095955 (n=420/420)
+  Logit_L2_C3.594     : 0.106391 (n=420/420)
+  Logit_L2_C10.000    : 0.118404 (n=420/420)
+
+Predictor Set: PCA_Factors_8
+--------------------------------------------------
+  Logit_L2_C0.001     : 0.196138 (n=420/420)
+  Logit_L2_C0.003     : 0.155405 (n=420/420)
+  Logit_L2_C0.008     : 0.110896 (n=420/420)
+  Logit_L2_C0.022     : 0.078611 (n=420/420)
+  Logit_L2_C0.060     : 0.062610 (n=420/420)
+  Logit_L2_C0.167     : 0.056384 (n=420/420)
+  Logit_L2_C0.464     : 0.054236 (n=420/420)
+  Logit_L2_C1.292     : 0.053530 (n=420/420)
+  Logit_L2_C3.594     : 0.053295 (n=420/420)
+  Logit_L2_C10.000    : 0.053215 (n=420/420)
+
+Predictor Set: Yield
+--------------------------------------------------
+  Logit_L2_C0.001     : 0.176717 (n=420/420)
+  Logit_L2_C0.003     : 0.141319 (n=420/420)
+  Logit_L2_C0.008     : 0.118488 (n=420/420)
+  Logit_L2_C0.022     : 0.106314 (n=420/420)
+  Logit_L2_C0.060     : 0.100238 (n=420/420)
+  Logit_L2_C0.167     : 0.097585 (n=420/420)
+  Logit_L2_C0.464     : 0.096553 (n=420/420)
+  Logit_L2_C1.292     : 0.096172 (n=420/420)
+  Logit_L2_C3.594     : 0.096034 (n=420/420)
+  Logit_L2_C10.000    : 0.095984 (n=420/420)
+
+Predictor Set: ADS
+--------------------------------------------------
+  Logit_L2_C0.001     : 0.216236 (n=420/420)
+  Logit_L2_C0.003     : 0.178757 (n=420/420)
+  Logit_L2_C0.008     : 0.131793 (n=420/420)
+  Logit_L2_C0.022     : 0.095717 (n=420/420)
+  Logit_L2_C0.060     : 0.076410 (n=420/420)
+  Logit_L2_C0.167     : 0.067880 (n=420/420)
+  Logit_L2_C0.464     : 0.064450 (n=420/420)
+  Logit_L2_C1.292     : 0.063146 (n=420/420)
+  Logit_L2_C3.594     : 0.062665 (n=420/420)
+  Logit_L2_C10.000    : 0.062490 (n=420/420)
+
+================================================================================
+SUMMARY TABLE
+================================================================================
+     Predictor_Set            Model   C_Value  Avg_Brier_Score  Valid_Predictions  Total_Predictions
+TFDI_dis_with_Full  Logit_L2_C0.001  0.001000         0.129836                420                420
+TFDI_dis_with_Full  Logit_L2_C0.003  0.003000         0.091809                420                420
+TFDI_dis_with_Full  Logit_L2_C0.008  0.008000         0.071757                420                420
+TFDI_dis_with_Full  Logit_L2_C0.022  0.022000         0.063701                420                420
+TFDI_dis_with_Full  Logit_L2_C0.060  0.060000         0.061164                420                420
+TFDI_dis_with_Full  Logit_L2_C0.167  0.167000         0.060543                420                420
+TFDI_dis_with_Full  Logit_L2_C0.464  0.464000         0.061108                420                420
+TFDI_dis_with_Full  Logit_L2_C1.292  1.292000         0.063083                420                420
+TFDI_dis_with_Full  Logit_L2_C3.594  3.594000         0.066505                420                420
+TFDI_dis_with_Full Logit_L2_C10.000 10.000000         0.070183                420                420
+          TFDI_dis  Logit_L2_C0.001  0.001000         0.162504                420                420
+          TFDI_dis  Logit_L2_C0.003  0.003000         0.124105                420                420
+          TFDI_dis  Logit_L2_C0.008  0.008000         0.090268                420                420
+          TFDI_dis  Logit_L2_C0.022  0.022000         0.066684                420                420
+          TFDI_dis  Logit_L2_C0.060  0.060000         0.053288                420                420
+          TFDI_dis  Logit_L2_C0.167  0.167000         0.046586                420                420
+          TFDI_dis  Logit_L2_C0.464  0.464000         0.044146                420                420
+          TFDI_dis  Logit_L2_C1.292  1.292000         0.045353                420                420
+          TFDI_dis  Logit_L2_C3.594  3.594000         0.049056                420                420
+          TFDI_dis Logit_L2_C10.000 10.000000         0.054460                420                420
+              Full  Logit_L2_C0.001  0.001000         0.194654                420                420
+              Full  Logit_L2_C0.003  0.003000         0.152845                420                420
+              Full  Logit_L2_C0.008  0.008000         0.110009                420                420
+              Full  Logit_L2_C0.022  0.022000         0.083841                420                420
+              Full  Logit_L2_C0.060  0.060000         0.076833                420                420
+              Full  Logit_L2_C0.167  0.167000         0.079896                420                420
+              Full  Logit_L2_C0.464  0.464000         0.086921                420                420
+              Full  Logit_L2_C1.292  1.292000         0.095955                420                420
+              Full  Logit_L2_C3.594  3.594000         0.106391                420                420
+              Full Logit_L2_C10.000 10.000000         0.118404                420                420
+     PCA_Factors_8  Logit_L2_C0.001  0.001000         0.196138                420                420
+     PCA_Factors_8  Logit_L2_C0.003  0.003000         0.155405                420                420
+     PCA_Factors_8  Logit_L2_C0.008  0.008000         0.110896                420                420
+     PCA_Factors_8  Logit_L2_C0.022  0.022000         0.078611                420                420
+     PCA_Factors_8  Logit_L2_C0.060  0.060000         0.062610                420                420
+     PCA_Factors_8  Logit_L2_C0.167  0.167000         0.056384                420                420
+     PCA_Factors_8  Logit_L2_C0.464  0.464000         0.054236                420                420
+     PCA_Factors_8  Logit_L2_C1.292  1.292000         0.053530                420                420
+     PCA_Factors_8  Logit_L2_C3.594  3.594000         0.053295                420                420
+     PCA_Factors_8 Logit_L2_C10.000 10.000000         0.053215                420                420
+             Yield  Logit_L2_C0.001  0.001000         0.176717                420                420
+             Yield  Logit_L2_C0.003  0.003000         0.141319                420                420
+             Yield  Logit_L2_C0.008  0.008000         0.118488                420                420
+             Yield  Logit_L2_C0.022  0.022000         0.106314                420                420
+             Yield  Logit_L2_C0.060  0.060000         0.100238                420                420
+             Yield  Logit_L2_C0.167  0.167000         0.097585                420                420
+             Yield  Logit_L2_C0.464  0.464000         0.096553                420                420
+             Yield  Logit_L2_C1.292  1.292000         0.096172                420                420
+             Yield  Logit_L2_C3.594  3.594000         0.096034                420                420
+             Yield Logit_L2_C10.000 10.000000         0.095984                420                420
+               ADS  Logit_L2_C0.001  0.001000         0.216236                420                420
+               ADS  Logit_L2_C0.003  0.003000         0.178757                420                420
+               ADS  Logit_L2_C0.008  0.008000         0.131793                420                420
+               ADS  Logit_L2_C0.022  0.022000         0.095717                420                420
+               ADS  Logit_L2_C0.060  0.060000         0.076410                420                420
+               ADS  Logit_L2_C0.167  0.167000         0.067880                420                420
+               ADS  Logit_L2_C0.464  0.464000         0.064450                420                420
+               ADS  Logit_L2_C1.292  1.292000         0.063146                420                420
+               ADS  Logit_L2_C3.594  3.594000         0.062665                420                420
+               ADS Logit_L2_C10.000 10.000000         0.062490                420                420
+
+================================================================================
+BEST PERFORMING MODELS BY PREDICTOR SET
+================================================================================
+TFDI_dis_with_Full: Logit_L2_C0.167      (C=0.167, Brier: 0.060543)
+TFDI_dis       : Logit_L2_C0.464      (C=0.464, Brier: 0.044146)
+Full           : Logit_L2_C0.060      (C=0.060, Brier: 0.076833)
+PCA_Factors_8  : Logit_L2_C10.000     (C=10.000, Brier: 0.053215)
+Yield          : Logit_L2_C10.000     (C=10.000, Brier: 0.095984)
+ADS            : Logit_L2_C10.000     (C=10.000, Brier: 0.062490)
+
+================================================================================
+AVERAGE BRIER SCORES (OUT-OF-SAMPLE ERRORS)
+================================================================================
+
+Predictor Set: TFDI_avg
+--------------------------------------------------
+  Logit          : 0.049052 (n=420/420)
+  Logit_L1       : 0.049086 (n=420/420)
+
+================================================================================
+SUMMARY TABLE
+================================================================================
+Predictor_Set    Model  Avg_Brier_Score  Valid_Predictions  Total_Predictions
+     TFDI_avg    Logit         0.049052                420                420
+     TFDI_avg Logit_L1         0.049086                420                420
+
+================================================================================
+BEST PERFORMING MODELS BY PREDICTOR SET
+================================================================================
+TFDI_avg       : Logit           (Brier: 0.049052)
+
+
+================================================================================
+AVERAGE BRIER SCORES (OUT-OF-SAMPLE ERRORS)
+================================================================================
+
+Predictor Set: TFDI_avg
+--------------------------------------------------
+  Logit          : 0.049052 (n=420/420)
+  Logit_L1       : 0.049086 (n=420/420)
+
+Predictor Set: TFDI_pca
+--------------------------------------------------
+  Logit          : 0.030144 (n=420/420)
+  Logit_L1       : 0.029663 (n=420/420)
+
+================================================================================
+SUMMARY TABLE
+================================================================================
+Predictor_Set    Model  Avg_Brier_Score  Valid_Predictions  Total_Predictions
+     TFDI_avg    Logit         0.049052                420                420
+     TFDI_avg Logit_L1         0.049086                420                420
+     TFDI_pca    Logit         0.030144                420                420
+     TFDI_pca Logit_L1         0.029663                420                420
+
+================================================================================
+BEST PERFORMING MODELS BY PREDICTOR SET
+================================================================================
+TFDI_avg       : Logit           (Brier: 0.049052)
+TFDI_pca       : Logit_L1        (Brier: 0.029663)
+
+================================================================================
+AVERAGE BRIER SCORES (OUT-OF-SAMPLE ERRORS)
+================================================================================
+
+Predictor Set: TFDI_Full_pca
+--------------------------------------------------
+  Logit          : 0.027572 (n=420/420)
+  Logit_L1       : 0.027200 (n=420/420)
+
+================================================================================
+SUMMARY TABLE
+================================================================================
+Predictor_Set    Model  Avg_Brier_Score  Valid_Predictions  Total_Predictions
+TFDI_Full_pca    Logit         0.027572                420                420
+TFDI_Full_pca Logit_L1         0.027200                420                420
+
+================================================================================
+BEST PERFORMING MODELS BY PREDICTOR SET
+================================================================================
+TFDI_Full_pca  : Logit_L1        (Brier: 0.027200)

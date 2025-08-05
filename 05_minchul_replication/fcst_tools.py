@@ -543,3 +543,40 @@ def generate_qTrans_Sub_Indices(X_transformed_train, y_train, h_qt=3, q_qt=0.25,
 
 
     return all_disaggregates, all_sub_indices.ffill().fillna(0)
+
+
+def generate_TFDI_PCA_Factors(TFDI_dis_raw, n_factors=8):
+    """
+    This function generates PCA factors from TFDI disaggregated data.
+    It standardizes the data and applies PCA to extract the first n_factors principal components.
+    
+    Parameters:
+    -----------
+    TFDI_dis_raw : pandas.DataFrame
+        TFDI disaggregated data (binary deterioration states for individual variables)
+    n_factors : int, default=8
+        Number of principal components to extract
+        
+    Returns:
+    --------
+    pandas.DataFrame
+        DataFrame with n_factors columns containing the principal components
+    """
+    print(f"      -> Generating TFDI PCA Factors (n={n_factors})...")
+    
+    # Standardize the TFDI disaggregated data
+    scaler_tfdi = StandardScaler()
+    TFDI_dis_scaled = pd.DataFrame(scaler_tfdi.fit_transform(TFDI_dis_raw), 
+                                  index=TFDI_dis_raw.index, 
+                                  columns=TFDI_dis_raw.columns)
+    
+    # Apply PCA to get first n_factors principal components
+    pca_tfdi = PCA(n_components=n_factors)
+    tfdi_pca_factors = pca_tfdi.fit_transform(TFDI_dis_scaled)
+    
+    # Create DataFrame with PCA factors
+    tfdi_pca_df = pd.DataFrame(tfdi_pca_factors,
+                              index=TFDI_dis_scaled.index,
+                              columns=[f'TFDI_PCA_Factor_{i+1}' for i in range(n_factors)])
+    
+    return tfdi_pca_df
