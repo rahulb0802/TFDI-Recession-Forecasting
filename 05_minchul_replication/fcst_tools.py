@@ -542,4 +542,4 @@ def generate_qTrans_Sub_Indices(X_transformed_train, y_train, h_qt=3, q_qt=0.25,
 
 
 
-    return all_disaggregates, all_sub_indices.fillna(method='ffill').fillna(0)
+    return all_disaggregates, all_sub_indices.ffill().fillna(0)
