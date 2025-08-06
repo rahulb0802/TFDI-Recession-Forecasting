@@ -12,8 +12,8 @@ It seems like "at Risk" transformation contains valuable information
 
 Now, the question remains:
 1] at which quantile? (`see main_quantile_check.py`) -> interestingly, 0.25 performed the best 
-2] number of factors 
-3] "at Risk" transformation of raw PCA
+2] number of factors -> 8 or 9 factors are the best
+3] "at Risk" transformation of raw PCA 
 
 # Detailed info
 
@@ -568,3 +568,48 @@ Detailed Results:
     3 0.350000 TFDI_Full_pca Logit         0.033166                420                420
     3 0.350000      TFDI_pca Logit         0.040601                420                420
     3 0.350000      TFDI_avg Logit         0.053123                420                420
+
+================================================================================
+FACTOR ROBUSTNESS EXERCISE RESULTS
+================================================================================
+
+Best performing combination:
+  n_factors: 8
+  Brier Score: 0.030107
+
+Summary statistics:
+  Mean Brier Score: 0.033404
+  Std Brier Score: 0.003440
+  Min Brier Score: 0.030107
+  Max Brier Score: 0.043729
+
+Performance by number of factors:
+  n_factors= 1: Brier Score = 0.043729
+  n_factors= 2: Brier Score = 0.033039
+  n_factors= 3: Brier Score = 0.032715
+  n_factors= 4: Brier Score = 0.033537
+  n_factors= 5: Brier Score = 0.034032
+  n_factors= 6: Brier Score = 0.032918
+  n_factors= 7: Brier Score = 0.032738
+  n_factors= 8: Brier Score = 0.030107
+  n_factors= 9: Brier Score = 0.030544
+  n_factors=10: Brier Score = 0.032186
+  n_factors=11: Brier Score = 0.032312
+  n_factors=12: Brier Score = 0.032995
+
+Optimal number of factors: 8
+
+Detailed Results:
+ n_factors  Avg_Brier_Score  Valid_Predictions  Total_Predictions
+         1         0.043729                420                420
+         2         0.033039                420                420
+         3         0.032715                420                420
+         4         0.033537                420                420
+         5         0.034032                420                420
+         6         0.032918                420                420
+         7         0.032738                420                420
+         8         0.030107                420                420
+         9         0.030544                420                420
+        10         0.032186                420                420
+        11         0.032312                420                420
+        12         0.032995                420                420
