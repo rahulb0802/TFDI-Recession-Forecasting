@@ -11,9 +11,9 @@ When H=3;
 It seems like "at Risk" transformation contains valuable information
 
 Now, the question remains:
-1. at which quantile? (`see main_quantile_check.py`) -> interestingly, 0.25 performed the best 
-2. number of factors (`see main_nfactor_check.py`) -> 8 or 9 factors are the best
-3. "at Risk" transformation of raw PCA 
+1] at which quantile? (`see main_quantile_check.py`) -> interestingly, 0.25 performed the best 
+2] number of factors (`see main_nfactor_check.py`) -> 8 or 9 factors are the best
+3] "at Risk" transformation of raw PCA 
 
 # Detailed info
 
