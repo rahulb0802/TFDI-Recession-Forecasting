@@ -1,0 +1,2 @@
+h_qt,q_qt,n_factors,Predictor_Set,Model,Avg_Brier_Score,Valid_Predictions,Total_Predictions
+3,0.25,8,TFDI_pca,Logit,0.049646511123664236,420,420
