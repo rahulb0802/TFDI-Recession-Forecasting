@@ -42,7 +42,7 @@ OOS_MODELS_PATH = RESULTS_PATH  # dump everything to this folder
 
 # Out-of-sample (OOS) Loop Settings
 OOS_START_DATE = '1990-01-01'
-PREDICTION_HORIZONS = [6]
+PREDICTION_HORIZONS = [1]
 LAGS_TO_ADD = []
 
 # These are the five models used to generate the ensemble forecasts

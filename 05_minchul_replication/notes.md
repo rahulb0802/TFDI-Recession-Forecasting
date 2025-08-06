@@ -9,8 +9,11 @@ When H=3;
 7. TFDI_pca: 2 works the best but not much variation across the number in that all beat TFDI_avg (`see main_nfactor_check.py`)
 8. TFDI_avg: similar performance curvature found for h_qt and q_qt for TFDI_avg. h_qt=1 still leads to better performance, q_qt=0.3 was the best, though.
 
-When H=6;
-1. 
+When varying h;
+1. h=1: (best) TFDI_Full_pca  : Logit_L1; Then, TFDI_pca and TFDI_dis are roughly similar
+2. h=3: Best model is TFDI_dis:Logit_L1 followed by TFDI_Full_pca:Logit_L1
+3. h=6: TFDI_pca performed the best followed by TFDI_Full_pca 
+4. h=12: TFDI_dis:L1 performs the best followed by TFDI_pca
 
 ---
 
@@ -441,3 +444,266 @@ Detailed Results:
         10         0.050123                420                420
         11         0.049493                420                420
         12         0.051155                420                420
+
+---
+H=6
+
+================================================================================
+AVERAGE BRIER SCORES (OUT-OF-SAMPLE ERRORS)
+================================================================================
+
+Predictor Set: TFDI_pca
+--------------------------------------------------
+  Logit          : 0.067333 (n=420/420)
+  Logit_L1       : 0.066837 (n=420/420)
+
+Predictor Set: TFDI_avg
+--------------------------------------------------
+  Logit          : 0.079168 (n=420/420)
+  Logit_L1       : 0.079424 (n=420/420)
+
+Predictor Set: PCA_Factors_8
+--------------------------------------------------
+  Logit          : 0.070265 (n=420/420)
+  Logit_L1       : 0.070260 (n=420/420)
+
+Predictor Set: TFDI_Full_pca
+--------------------------------------------------
+  Logit          : 0.070221 (n=420/420)
+  Logit_L1       : 0.069663 (n=420/420)
+
+Predictor Set: TFDI_dis
+--------------------------------------------------
+  Logit          : 0.144389 (n=420/420)
+  Logit_L1       : 0.073113 (n=420/420)
+
+Predictor Set: TFDI_dis_with_Full
+--------------------------------------------------
+  Logit          : 0.125246 (n=420/420)
+  Logit_L1       : 0.077648 (n=420/420)
+
+Predictor Set: Full
+--------------------------------------------------
+  Logit          : 0.150403 (n=420/420)
+  Logit_L1       : 0.086428 (n=420/420)
+
+Predictor Set: Yield
+--------------------------------------------------
+  Logit          : 0.093240 (n=420/420)
+  Logit_L1       : 0.093302 (n=420/420)
+
+Predictor Set: ADS
+--------------------------------------------------
+  Logit          : 0.082972 (n=420/420)
+  Logit_L1       : 0.083281 (n=420/420)
+
+================================================================================
+SUMMARY TABLE
+================================================================================
+     Predictor_Set    Model  Avg_Brier_Score  Valid_Predictions  Total_Predictions
+          TFDI_pca    Logit         0.067333                420                420
+          TFDI_pca Logit_L1         0.066837                420                420
+          TFDI_avg    Logit         0.079168                420                420
+          TFDI_avg Logit_L1         0.079424                420                420
+     PCA_Factors_8    Logit         0.070265                420                420
+     PCA_Factors_8 Logit_L1         0.070260                420                420
+     TFDI_Full_pca    Logit         0.070221                420                420
+     TFDI_Full_pca Logit_L1         0.069663                420                420
+          TFDI_dis    Logit         0.144389                420                420
+          TFDI_dis Logit_L1         0.073113                420                420
+TFDI_dis_with_Full    Logit         0.125246                420                420
+TFDI_dis_with_Full Logit_L1         0.077648                420                420
+              Full    Logit         0.150403                420                420
+              Full Logit_L1         0.086428                420                420
+             Yield    Logit         0.093240                420                420
+             Yield Logit_L1         0.093302                420                420
+               ADS    Logit         0.082972                420                420
+               ADS Logit_L1         0.083281                420                420
+
+================================================================================
+BEST PERFORMING MODELS BY PREDICTOR SET
+================================================================================
+TFDI_pca       : Logit_L1        (Brier: 0.066837)
+TFDI_avg       : Logit           (Brier: 0.079168)
+PCA_Factors_8  : Logit_L1        (Brier: 0.070260)
+TFDI_Full_pca  : Logit_L1        (Brier: 0.069663)
+TFDI_dis       : Logit_L1        (Brier: 0.073113)
+TFDI_dis_with_Full: Logit_L1        (Brier: 0.077648)
+Full           : Logit_L1        (Brier: 0.086428)
+Yield          : Logit           (Brier: 0.093240)
+ADS            : Logit           (Brier: 0.082972)
+
+---
+H=12
+================================================================================
+AVERAGE BRIER SCORES (OUT-OF-SAMPLE ERRORS)
+================================================================================
+
+Predictor Set: TFDI_pca
+--------------------------------------------------
+  Logit          : 0.073299 (n=420/420)
+  Logit_L1       : 0.073103 (n=420/420)
+
+Predictor Set: TFDI_avg
+--------------------------------------------------
+  Logit          : 0.089287 (n=420/420)
+  Logit_L1       : 0.089735 (n=420/420)
+
+Predictor Set: PCA_Factors_8
+--------------------------------------------------
+  Logit          : 0.074128 (n=420/420)
+  Logit_L1       : 0.074082 (n=420/420)
+
+Predictor Set: TFDI_Full_pca
+--------------------------------------------------
+  Logit          : 0.077620 (n=420/420)
+  Logit_L1       : 0.076493 (n=420/420)
+
+Predictor Set: TFDI_dis
+--------------------------------------------------
+  Logit          : 0.110160 (n=420/420)
+  Logit_L1       : 0.056643 (n=420/420)
+
+Predictor Set: TFDI_dis_with_Full
+--------------------------------------------------
+  Logit          : 0.147550 (n=420/420)
+  Logit_L1       : 0.079231 (n=420/420)
+
+Predictor Set: Full
+--------------------------------------------------
+  Logit          : 0.164678 (n=420/420)
+  Logit_L1       : 0.109227 (n=420/420)
+
+Predictor Set: Yield
+--------------------------------------------------
+  Logit          : 0.080636 (n=420/420)
+  Logit_L1       : 0.080534 (n=420/420)
+
+Predictor Set: ADS
+--------------------------------------------------
+  Logit          : 0.089940 (n=420/420)
+  Logit_L1       : 0.089781 (n=420/420)
+
+================================================================================
+SUMMARY TABLE
+================================================================================
+     Predictor_Set    Model  Avg_Brier_Score  Valid_Predictions  Total_Predictions
+          TFDI_pca    Logit         0.073299                420                420
+          TFDI_pca Logit_L1         0.073103                420                420
+          TFDI_avg    Logit         0.089287                420                420
+          TFDI_avg Logit_L1         0.089735                420                420
+     PCA_Factors_8    Logit         0.074128                420                420
+     PCA_Factors_8 Logit_L1         0.074082                420                420
+     TFDI_Full_pca    Logit         0.077620                420                420
+     TFDI_Full_pca Logit_L1         0.076493                420                420
+          TFDI_dis    Logit         0.110160                420                420
+          TFDI_dis Logit_L1         0.056643                420                420
+TFDI_dis_with_Full    Logit         0.147550                420                420
+TFDI_dis_with_Full Logit_L1         0.079231                420                420
+              Full    Logit         0.164678                420                420
+              Full Logit_L1         0.109227                420                420
+             Yield    Logit         0.080636                420                420
+             Yield Logit_L1         0.080534                420                420
+               ADS    Logit         0.089940                420                420
+               ADS Logit_L1         0.089781                420                420
+
+================================================================================
+BEST PERFORMING MODELS BY PREDICTOR SET
+================================================================================
+TFDI_pca       : Logit_L1        (Brier: 0.073103)
+TFDI_avg       : Logit           (Brier: 0.089287)
+PCA_Factors_8  : Logit_L1        (Brier: 0.074082)
+TFDI_Full_pca  : Logit_L1        (Brier: 0.076493)
+TFDI_dis       : Logit_L1        (Brier: 0.056643)
+TFDI_dis_with_Full: Logit_L1        (Brier: 0.079231)
+Full           : Logit_L1        (Brier: 0.109227)
+Yield          : Logit_L1        (Brier: 0.080534)
+ADS            : Logit_L1        (Brier: 0.089781)
+
+---
+H=1
+
+================================================================================
+AVERAGE BRIER SCORES (OUT-OF-SAMPLE ERRORS)
+================================================================================
+
+Predictor Set: TFDI_pca
+--------------------------------------------------
+  Logit          : 0.030119 (n=420/420)
+  Logit_L1       : 0.029631 (n=420/420)
+
+Predictor Set: TFDI_avg
+--------------------------------------------------
+  Logit          : 0.049052 (n=420/420)
+  Logit_L1       : 0.049086 (n=420/420)
+
+Predictor Set: PCA_Factors_8
+--------------------------------------------------
+  Logit          : 0.034321 (n=420/420)
+  Logit_L1       : 0.034950 (n=420/420)
+
+Predictor Set: TFDI_Full_pca
+--------------------------------------------------
+  Logit          : 0.027476 (n=420/420)
+  Logit_L1       : 0.027086 (n=420/420)
+
+Predictor Set: TFDI_dis
+--------------------------------------------------
+  Logit          : 0.049832 (n=420/420)
+  Logit_L1       : 0.029706 (n=420/420)
+
+Predictor Set: TFDI_dis_with_Full
+--------------------------------------------------
+  Logit          : 0.061678 (n=420/420)
+  Logit_L1       : 0.039971 (n=420/420)
+
+Predictor Set: Full
+--------------------------------------------------
+  Logit          : 0.093156 (n=420/420)
+  Logit_L1       : 0.058409 (n=420/420)
+
+Predictor Set: Yield
+--------------------------------------------------
+  Logit          : 0.092530 (n=420/420)
+  Logit_L1       : 0.092707 (n=420/420)
+
+Predictor Set: ADS
+--------------------------------------------------
+  Logit          : 0.037400 (n=420/420)
+  Logit_L1       : 0.038168 (n=420/420)
+
+================================================================================
+SUMMARY TABLE
+================================================================================
+     Predictor_Set    Model  Avg_Brier_Score  Valid_Predictions  Total_Predictions
+          TFDI_pca    Logit         0.030119                420                420
+          TFDI_pca Logit_L1         0.029631                420                420
+          TFDI_avg    Logit         0.049052                420                420
+          TFDI_avg Logit_L1         0.049086                420                420
+     PCA_Factors_8    Logit         0.034321                420                420
+     PCA_Factors_8 Logit_L1         0.034950                420                420
+     TFDI_Full_pca    Logit         0.027476                420                420
+     TFDI_Full_pca Logit_L1         0.027086                420                420
+          TFDI_dis    Logit         0.049832                420                420
+          TFDI_dis Logit_L1         0.029706                420                420
+TFDI_dis_with_Full    Logit         0.061678                420                420
+TFDI_dis_with_Full Logit_L1         0.039971                420                420
+              Full    Logit         0.093156                420                420
+              Full Logit_L1         0.058409                420                420
+             Yield    Logit         0.092530                420                420
+             Yield Logit_L1         0.092707                420                420
+               ADS    Logit         0.037400                420                420
+               ADS Logit_L1         0.038168                420                420
+
+================================================================================
+BEST PERFORMING MODELS BY PREDICTOR SET
+================================================================================
+TFDI_pca       : Logit_L1        (Brier: 0.029631)
+TFDI_avg       : Logit           (Brier: 0.049052)
+PCA_Factors_8  : Logit           (Brier: 0.034321)
+TFDI_Full_pca  : Logit_L1        (Brier: 0.027086)
+TFDI_dis       : Logit_L1        (Brier: 0.029706)
+TFDI_dis_with_Full: Logit_L1        (Brier: 0.039971)
+Full           : Logit_L1        (Brier: 0.058409)
+Yield          : Logit           (Brier: 0.092530)
+ADS            : Logit           (Brier: 0.037400)
