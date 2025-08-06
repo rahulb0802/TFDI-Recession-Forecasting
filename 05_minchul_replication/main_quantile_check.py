@@ -41,8 +41,8 @@ PREDICTION_HORIZONS = [1]
 LAGS_TO_ADD = []
 
 # Robustness parameters
-H_QT_VALUES = [3, 12]
-Q_QT_VALUES = [0.05, 0.10, 0.25]
+H_QT_VALUES = [3]
+Q_QT_VALUES = [0.1, 0.15, 0.2, 0.25, 0.3, 0.35]
 
 # These are the models used to generate the ensemble forecasts
 MODELS_TO_RUN = {

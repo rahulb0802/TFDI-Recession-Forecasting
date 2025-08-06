@@ -1,7 +1,7 @@
 # Notes for model exploring
 When H=3;
-1. TFDI-dis with L1 regularization leads to better performance
-2. Better than L2 - Yes
+1. TFDI-dis with L1 regularization leads to better performance (`main_regularization_check_L1.py`)
+2. Better than L2 - Yes (`main_regularization_check_L2.py`)
 3. Better than full covariates (L1, L2) - Yes
 4. better than TFDI-dis with full covariates (L1, L2) - Yes
 5. better than PCA of full covariates - Yes
@@ -11,8 +11,9 @@ When H=3;
 It seems like "at Risk" transformation contains valuable information
 
 Now, the question remains:
-1] at which quantile? (`see main_quantile_check.py`)
+1] at which quantile? (`see main_quantile_check.py`) -> interestingly, 0.25 performed the best 
 2] number of factors 
+3] "at Risk" transformation of raw PCA
 
 # Detailed info
 
@@ -416,3 +417,154 @@ TFDI_Full_pca Logit_L1         0.027200                420                420
 BEST PERFORMING MODELS BY PREDICTOR SET
 ================================================================================
 TFDI_Full_pca  : Logit_L1        (Brier: 0.027200)
+
+
+# Robustness
+
+================================================================================
+ROBUSTNESS EXERCISE RESULTS
+================================================================================
+
+Best performing combination:
+  h_qt: 3
+  q_qt: 0.25
+  Predictor Set: TFDI_Full_pca
+  Brier Score: 0.027690
+
+Summary by h_qt:
+  h_qt=3: Average Brier Score = 0.045435
+  h_qt=12: Average Brier Score = 0.061715
+
+Summary by q_qt:
+  q_qt=0.05: Average Brier Score = 0.063972
+  q_qt=0.1: Average Brier Score = 0.052554
+  q_qt=0.25: Average Brier Score = 0.044199
+
+Summary by Predictor Set:
+  TFDI_Full_pca: Average Brier Score = 0.036754
+  TFDI_pca: Average Brier Score = 0.056367
+  TFDI_avg: Average Brier Score = 0.067604
+
+Detailed Results:
+ h_qt     q_qt Predictor_Set Model  Avg_Brier_Score  Valid_Predictions  Total_Predictions
+    3 0.050000 TFDI_Full_pca Logit         0.040166                420                420
+    3 0.050000      TFDI_pca Logit         0.057934                420                420
+    3 0.050000      TFDI_avg Logit         0.067682                420                420
+    3 0.100000 TFDI_Full_pca Logit         0.037693                420                420
+    3 0.100000      TFDI_pca Logit         0.042607                420                420
+    3 0.100000      TFDI_avg Logit         0.055956                420                420
+    3 0.250000 TFDI_Full_pca Logit         0.027690                420                420
+    3 0.250000      TFDI_pca Logit         0.030130                420                420
+    3 0.250000      TFDI_avg Logit         0.049052                420                420
+   12 0.050000 TFDI_Full_pca Logit         0.039272                420                420
+   12 0.050000      TFDI_pca Logit         0.092223                420                420
+   12 0.050000      TFDI_avg Logit         0.086553                420                420
+   12 0.100000 TFDI_Full_pca Logit         0.038544                420                420
+   12 0.100000      TFDI_pca Logit         0.060814                420                420
+   12 0.100000      TFDI_avg Logit         0.079707                420                420
+   12 0.250000 TFDI_Full_pca Logit         0.037156                420                420
+   12 0.250000      TFDI_pca Logit         0.054493                420                420
+   12 0.250000      TFDI_avg Logit         0.066675                420                420
+
+
+   ================================================================================
+ROBUSTNESS EXERCISE RESULTS
+================================================================================
+
+Best performing combination:
+  h_qt: 3
+  q_qt: 0.25
+  Predictor Set: TFDI_Full_pca
+  Brier Score: 0.027413
+
+Summary by h_qt:
+  h_qt=1: Average Brier Score = 0.042767
+  h_qt=2: Average Brier Score = 0.043123
+  h_qt=3: Average Brier Score = 0.041475
+
+Summary by q_qt:
+  q_qt=0.25: Average Brier Score = 0.037774
+  q_qt=0.35: Average Brier Score = 0.042533
+  q_qt=0.45: Average Brier Score = 0.047057
+
+Summary by Predictor Set:
+  TFDI_Full_pca: Average Brier Score = 0.034916
+  TFDI_pca: Average Brier Score = 0.038166
+  TFDI_avg: Average Brier Score = 0.054282
+
+Detailed Results:
+ h_qt     q_qt Predictor_Set Model  Avg_Brier_Score  Valid_Predictions  Total_Predictions
+    1 0.250000 TFDI_Full_pca Logit         0.036162                420                420
+    1 0.250000      TFDI_pca Logit         0.030631                420                420
+    1 0.250000      TFDI_avg Logit         0.045625                420                420
+    1 0.350000 TFDI_Full_pca Logit         0.037438                420                420
+    1 0.350000      TFDI_pca Logit         0.037321                420                420
+    1 0.350000      TFDI_avg Logit         0.050674                420                420
+    1 0.450000 TFDI_Full_pca Logit         0.037122                420                420
+    1 0.450000      TFDI_pca Logit         0.044851                420                420
+    1 0.450000      TFDI_avg Logit         0.065080                420                420
+    2 0.250000 TFDI_Full_pca Logit         0.036021                420                420
+    2 0.250000      TFDI_pca Logit         0.035457                420                420
+    2 0.250000      TFDI_avg Logit         0.049419                420                420
+    2 0.350000 TFDI_Full_pca Logit         0.037626                420                420
+    2 0.350000      TFDI_pca Logit         0.040254                420                420
+    2 0.350000      TFDI_avg Logit         0.052505                420                420
+    2 0.450000 TFDI_Full_pca Logit         0.034341                420                420
+    2 0.450000      TFDI_pca Logit         0.042459                420                420
+    2 0.450000      TFDI_avg Logit         0.060019                420                420
+    3 0.250000 TFDI_Full_pca Logit         0.027413                420                420
+    3 0.250000      TFDI_pca Logit         0.030190                420                420
+    3 0.250000      TFDI_avg Logit         0.049052                420                420
+    3 0.350000 TFDI_Full_pca Logit         0.033160                420                420
+    3 0.350000      TFDI_pca Logit         0.040695                420                420
+    3 0.350000      TFDI_avg Logit         0.053123                420                420
+    3 0.450000 TFDI_Full_pca Logit         0.034957                420                420
+    3 0.450000      TFDI_pca Logit         0.041640                420                420
+    3 0.450000      TFDI_avg Logit         0.063042                420                420
+
+================================================================================
+ROBUSTNESS EXERCISE RESULTS
+================================================================================
+
+Best performing combination:
+  h_qt: 3
+  q_qt: 0.25
+  Predictor Set: TFDI_Full_pca
+  Brier Score: 0.027499
+
+Summary by h_qt:
+  h_qt=3: Average Brier Score = 0.039821
+
+Summary by q_qt:
+  q_qt=0.1: Average Brier Score = 0.045399
+  q_qt=0.15: Average Brier Score = 0.038268
+  q_qt=0.2: Average Brier Score = 0.038028
+  q_qt=0.25: Average Brier Score = 0.035577
+  q_qt=0.3: Average Brier Score = 0.039356
+  q_qt=0.35: Average Brier Score = 0.042297
+
+Summary by Predictor Set:
+  TFDI_Full_pca: Average Brier Score = 0.031948
+  TFDI_pca: Average Brier Score = 0.035970
+  TFDI_avg: Average Brier Score = 0.051545
+
+Detailed Results:
+ h_qt     q_qt Predictor_Set Model  Avg_Brier_Score  Valid_Predictions  Total_Predictions
+    3 0.100000 TFDI_Full_pca Logit         0.037670                420                420
+    3 0.100000      TFDI_pca Logit         0.042572                420                420
+    3 0.100000      TFDI_avg Logit         0.055956                420                420
+    3 0.150000 TFDI_Full_pca Logit         0.030333                420                420
+    3 0.150000      TFDI_pca Logit         0.033443                420                420
+    3 0.150000      TFDI_avg Logit         0.051027                420                420
+    3 0.200000 TFDI_Full_pca Logit         0.031762                420                420
+    3 0.200000      TFDI_pca Logit         0.032386                420                420
+    3 0.200000      TFDI_avg Logit         0.049936                420                420
+    3 0.250000 TFDI_Full_pca Logit         0.027499                420                420
+    3 0.250000      TFDI_pca Logit         0.030180                420                420
+    3 0.250000      TFDI_avg Logit         0.049052                420                420
+    3 0.300000 TFDI_Full_pca Logit         0.031256                420                420
+    3 0.300000      TFDI_pca Logit         0.036639                420                420
+    3 0.300000      TFDI_avg Logit         0.050175                420                420
+    3 0.350000 TFDI_Full_pca Logit         0.033166                420                420
+    3 0.350000      TFDI_pca Logit         0.040601                420                420
+    3 0.350000      TFDI_avg Logit         0.053123                420                420
