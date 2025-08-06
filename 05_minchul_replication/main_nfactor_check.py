@@ -36,7 +36,7 @@ OOS_MODELS_PATH = RESULTS_PATH
 
 # Out-of-sample (OOS) Loop Settings
 OOS_START_DATE = '1990-01-01'
-PREDICTION_HORIZONS = [1]
+PREDICTION_HORIZONS = [3]
 LAGS_TO_ADD = []
 
 # Fixed parameters for TFDI

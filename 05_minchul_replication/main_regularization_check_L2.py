@@ -65,7 +65,7 @@ for i, C in enumerate(C_values):
 # Predictors
 #ALL_POSSIBLE_SETS = ['TFDI', 'PCA_Factors_8', 'Full']
 #ALL_POSSIBLE_SETS = ['PCA_Factors_8', 'Full', 'Yield', 'ADS']
-ALL_POSSIBLE_SETS = ['TFDI_dis_with_Full', 'TFDI_dis', 'Full', 'PCA_Factors_8', 'Yield', 'ADS']
+ALL_POSSIBLE_SETS = ['TFDI_dis', 'TFDI_dis_with_Full', 'Full']
 # ALL_POSSIBLE_SETS = ['TFDI_dis']
 
 # %% Load data

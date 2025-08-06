@@ -37,12 +37,12 @@ OOS_MODELS_PATH = RESULTS_PATH
 
 # Out-of-sample (OOS) Loop Settings
 OOS_START_DATE = '1990-01-01'
-PREDICTION_HORIZONS = [1]
+PREDICTION_HORIZONS = [3]
 LAGS_TO_ADD = []
 
 # Robustness parameters
-H_QT_VALUES = [3]
-Q_QT_VALUES = [0.1, 0.15, 0.2, 0.25, 0.3, 0.35]
+H_QT_VALUES = [1, 3, 6]
+Q_QT_VALUES = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4]
 
 # These are the models used to generate the ensemble forecasts
 MODELS_TO_RUN = {
@@ -50,7 +50,7 @@ MODELS_TO_RUN = {
 }
 
 # Predictor sets to test
-ALL_POSSIBLE_SETS = ['TFDI_Full_pca', 'TFDI_pca', 'TFDI_avg']
+ALL_POSSIBLE_SETS = ['TFDI_avg']
 
 # %% Load data
 y_target_full = pd.read_pickle(os.path.join(INTERMEDIATE_PATH, 'y_target.pkl'))

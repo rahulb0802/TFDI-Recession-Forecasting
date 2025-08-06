@@ -42,7 +42,7 @@ OOS_MODELS_PATH = RESULTS_PATH  # dump everything to this folder
 
 # Out-of-sample (OOS) Loop Settings
 OOS_START_DATE = '1990-01-01'
-PREDICTION_HORIZONS = [3]
+PREDICTION_HORIZONS = [6]
 LAGS_TO_ADD = []
 
 # These are the five models used to generate the ensemble forecasts
@@ -63,7 +63,7 @@ MODELS_TO_RUN = {
 #ALL_POSSIBLE_SETS = ['PCA_Factors_8', 'Full', 'Yield', 'ADS']
 #ALL_POSSIBLE_SETS = ['TFDI_dis_with_Full', 'TFDI_dis']
 # ALL_POSSIBLE_SETS = ['TFDI_Full_pca', 'TFDI_pca', 'TFDI_avg']
-ALL_POSSIBLE_SETS = ['TFDI_Full_pca', 'TFDI_pca', 'TFDI_avg', 'TFDI_dis', 'TFDI_dis_with_Full', 'Full', 'PCA_Factors_8', 'Yield', 'ADS']
+ALL_POSSIBLE_SETS = ['TFDI_pca', 'TFDI_avg', 'PCA_Factors_8', 'TFDI_Full_pca', 'TFDI_dis', 'TFDI_dis_with_Full', 'Full', 'Yield', 'ADS']
 
 # %% Load data
 y_target_full = pd.read_pickle(os.path.join(INTERMEDIATE_PATH, 'y_target.pkl'))
