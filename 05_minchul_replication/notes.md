@@ -5,12 +5,12 @@ When H=3;
 3. TFDI_pca performs better than TFDI_avg (Brier: 0.049676 versus 0.063356)
 4. When we are allowed to choose the regularization strength, TFDI_dis with L1 regularization is the best model and it leads to even lower Brier score (0.035091). But, our default choice is very close to this ex-post best case. TFDI_dis performs better than TFDI_dis_with_Full at their ex-post best regularization strength (0.035091 versus 0.045657),  (`main_regularization_check_L1.py`)
 5. In general, L1 regularization performs better than L2 regularization (see `main_regularization_check_L2.py`). We really need to kick out some of irrelevant variables. For TFDI-dis, the expost best L2 version performs slightly better than TFDI_pca. 
-6. TFDI_pca: we check h_qt and q_qt, h_qt=1 with q_qt=0.25 are the best expost. It is interesting to see that higher quantile value like 0.25 performs well. (`see main_quantile_check.py`) 
+6. TFDI_pca: we check h_qt and q_qt, h_qt=1 with q_qt=0.25 are the best expost. It is interesting to see that higher quantile value like 0.25 performs well. (`see main_quantile_check.py
 7. TFDI_pca: 2 works the best but not much variation across the number in that all beat TFDI_avg (`see main_nfactor_check.py`)
 8. TFDI_avg: similar performance curvature found for h_qt and q_qt for TFDI_avg. h_qt=1 still leads to better performance, q_qt=0.3 was the best, though.
 
 When varying h;
-1. h=1: (best) TFDI_Full_pca  : Logit_L1; Then, TFDI_pca and TFDI_dis are roughly similar
+1. h=1: (best) TFDI_Fullpca_  : Logit_L1; Then, TFDI_pca and TFDI_dis are roughly similar
 2. h=3: Best model is TFDI_dis:Logit_L1 followed by TFDI_Full_pca:Logit_L1
 3. h=6: TFDI_pca performed the best followed by TFDI_Full_pca 
 4. h=12: TFDI_dis:L1 performs the best followed by TFDI_pca
