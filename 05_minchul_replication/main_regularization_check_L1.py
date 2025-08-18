@@ -41,7 +41,7 @@ OOS_MODELS_PATH = RESULTS_PATH  # dump everything to this folder
 
 # Out-of-sample (OOS) Loop Settings
 OOS_START_DATE = '1990-01-01'
-PREDICTION_HORIZONS = [3]
+PREDICTION_HORIZONS = [6]
 LAGS_TO_ADD = []
 
 # Nonlinear grid for regularization parameters

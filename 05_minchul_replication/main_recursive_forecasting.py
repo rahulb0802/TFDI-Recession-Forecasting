@@ -42,7 +42,7 @@ OOS_MODELS_PATH = RESULTS_PATH  # dump everything to this folder
 
 # Out-of-sample (OOS) Loop Settings
 OOS_START_DATE = '1990-01-01'
-PREDICTION_HORIZONS = [1]
+PREDICTION_HORIZONS = [3]
 LAGS_TO_ADD = []
 
 # These are the five models used to generate the ensemble forecasts
@@ -66,12 +66,12 @@ MODELS_TO_RUN = {
 ALL_POSSIBLE_SETS = ['TFDI_pca', 'TFDI_avg', 'PCA_Factors_8', 'TFDI_Full_pca', 'TFDI_dis', 'TFDI_dis_with_Full', 'Full', 'Yield', 'ADS']
 
 # %% Load data
-y_target_full = pd.read_pickle(os.path.join(INTERMEDIATE_PATH, 'y_target.pkl'))
-X_yield_full = pd.read_pickle(os.path.join(INTERMEDIATE_PATH, 'X_yield.pkl'))
-X_transformed_full = pd.read_pickle(os.path.join(INTERMEDIATE_PATH, 'X_transformed_monthly.pkl'))
+y_target_full        = pd.read_pickle(os.path.join(INTERMEDIATE_PATH, 'y_target.pkl'))
+X_yield_full         = pd.read_pickle(os.path.join(INTERMEDIATE_PATH, 'X_yield.pkl'))
+X_transformed_full   = pd.read_pickle(os.path.join(INTERMEDIATE_PATH, 'X_transformed_monthly.pkl'))
 X_untransformed_full = pd.read_pickle(os.path.join(INTERMEDIATE_PATH, 'X_untransformed_monthly.pkl'))
-X_ads_full = pd.read_pickle(os.path.join(INTERMEDIATE_PATH, 'X_ads.pkl'))
-tcodes = pd.read_pickle(os.path.join(INTERMEDIATE_PATH, 'tcodes.pkl'))
+X_ads_full           = pd.read_pickle(os.path.join(INTERMEDIATE_PATH, 'X_ads.pkl'))
+tcodes               = pd.read_pickle(os.path.join(INTERMEDIATE_PATH, 'tcodes.pkl'))
 
 # %% Actual computation
 # Master Loop for all horizons
@@ -108,7 +108,7 @@ for PREDICTION_HORIZON in PREDICTION_HORIZONS:
 
         # --- Prepare training data ---
         #train_end_date = forecast_date - pd.DateOffset(months=PREDICTION_HORIZON)
-        train_end_date = forecast_date - pd.DateOffset(months=1) #note that we've already shifted X so our training is all but the last row
+        train_end_date = forecast_date - pd.DateOffset(months=PREDICTION_HORIZON) #note that we've already shifted X so our training is all but the last row
         y_train_full = y_target_full.loc[:train_end_date, 'USRECM']
         y_actual = oos_actuals.loc[forecast_date]
     
