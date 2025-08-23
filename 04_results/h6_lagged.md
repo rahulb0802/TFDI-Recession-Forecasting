@@ -1,3 +1,5 @@
+## $h=6$ (lagged)
+
 |index|Predictor\_Set|Model|PR\_AUC|Brier\_Score|Resolution|Reliability|Uncertainty|ROC\_AUC|Num\_Forecasts|
 |---|---|---|---|---|---|---|---|---|---|
 |26|Deter\_PCA|Logit\_L2|0\.5216|0\.0839|0\.0312|0\.0299|0\.0862|0\.9276|420|
