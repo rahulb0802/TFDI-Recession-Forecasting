@@ -1,4 +1,4 @@
-## $h=12$
+## $h=12$ (lagged)
 
 |index|Predictor\_Set|Model|PR\_AUC|Brier\_Score|Resolution|Reliability|Uncertainty|ROC\_AUC|Num\_Forecasts|
 |---|---|---|---|---|---|---|---|---|---|
