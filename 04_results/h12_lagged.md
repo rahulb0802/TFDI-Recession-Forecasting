@@ -1,3 +1,5 @@
+## $h=12$
+
 |index|Predictor\_Set|Model|PR\_AUC|Brier\_Score|Resolution|Reliability|Uncertainty|ROC\_AUC|Num\_Forecasts|
 |---|---|---|---|---|---|---|---|---|---|
 |18|Deter|Logit\_L2|0\.5508|0\.098|0\.0273|0\.0397|0\.0862|0\.8785|420|
