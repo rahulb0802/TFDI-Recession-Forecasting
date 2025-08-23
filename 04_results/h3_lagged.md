@@ -1,3 +1,5 @@
+## $h=3$ (lagged)
+
 |index|Predictor\_Set|Model|PR\_AUC|Brier\_Score|Resolution|Reliability|Uncertainty|ROC\_AUC|Num\_Forecasts|
 |---|---|---|---|---|---|---|---|---|---|
 |11|PCA\_Factors\_8|XGBoost|0\.7156|0\.0514|0\.0444|0\.0107|0\.0862|0\.9143|420|
